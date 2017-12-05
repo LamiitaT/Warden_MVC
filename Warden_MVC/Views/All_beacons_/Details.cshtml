@@ -1,0 +1,74 @@
+﻿@model Warden_MVC.Models.all_beacons
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>all_beacons</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.idb)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.idb)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.x)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.x)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.y)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.y)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.comments)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.comments)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.last_seen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.last_seen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.neighbourID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.neighbourID)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

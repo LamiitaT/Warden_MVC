@@ -1,0 +1,209 @@
+﻿*{
+    margin: 0;
+    border: 0;
+}
+
+html,body {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    padding-top: 26px;
+}
+
+.main {
+    height: 100%;
+    *zoom: 1;
+}
+
+.header {
+    background: white;
+    height: 52px;
+}
+
+.footer {
+    background: white;
+    min-height: 4vh;
+}
+
+    .footer .navbar-text {
+        margin: 5px 0 0 0;
+        width: 100%;
+    }
+
+#blist {
+    background-color: aquamarine;
+    height: 90vh;
+    padding-right: 0px !important;
+    padding-left: 10px !important;
+}
+
+.panel {
+    overflow: scroll;
+}
+
+.panel-beacons {
+    height: 90vh;
+}
+
+.panel-notifications {
+    overflow: auto;
+}
+
+.panel-history {
+    overflow: auto;
+}
+
+.panel-heading{
+    background-color: aliceblue;
+}
+
+.map {
+    height: 93vh;
+    float: left;
+    padding-left: 0px !important;
+}
+
+#nlist {
+    background-image: url("img.jpg");
+    width: 55vh;
+    z-index: 99 !important;
+    position: absolute;
+    right: 0;
+}
+
+/*----- Tabs -----*/
+.tabs {
+    width: 100%;
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+    /*----- Tab Links -----*/
+    /* Clearfix */
+    .tab-links:after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+.tab-links {
+    margin-bottom: 0px !important;
+    -webkit-padding-start: 0px !important;
+}
+
+    .tab-links li {
+        margin: 0px 5px;
+        float: left;
+        list-style: none;
+    }
+
+    .tab-links a {
+        padding: 9px 15px;
+        display: inline-block;
+        border-radius: 3px 3px 0px 0px;
+        background: #7FB5DA;
+        font-size: 13px;
+        font-weight: 600;
+        color: #4c4c4c;
+        transition: all linear 0.15s;
+    }
+
+    .tab-links a:hover {
+        background: #a7cce5;
+        text-decoration: none;
+    }
+
+    li.active a, li.active a:hover {
+        background: #fff;
+        color: #4c4c4c;
+    }
+
+    /*----- Content of Tabs -----*/
+    .tab-content {
+        padding: 15px;
+        border-radius: 3px;
+        box-shadow: -1px 1px 1px rgba(0,0,0,0.15);
+        background: #fff;
+    }
+
+    .tab {
+        display: none;
+    }
+
+    .tab.active {
+        display: block;
+    }
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#noti_Container {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    padding-top: 10px;
+}
+
+.noti_bubble {
+    position: absolute;
+    top: 0px;
+    right: -6px;
+    padding: 1px 0px 1px 0px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 0.7em;
+    border-radius: 30px;
+    box-shadow: 1px 1px 1px gray;
+}
+
+/*---------Login--------------*/
+#login {
+    margin: 250px auto;
+    width: 40vh;
+    height: 25vh;
+}
+
+    #login table {
+        padding: 22px 22px 22px 22px;
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        border-top: 3px solid #434a52;
+        border-bottom: 3px solid #434a52;
+    }
+
+.t {
+    background-color: #3b4148 !important;
+    border-radius: 0px 3px 3px 0px;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 235px;
+    height: 50px;
+    font-size: 14px;
+    color:white !important;
+    float:left;
+}
+
+.b {
+    margin: 20px 150px auto !important;
+    background-color: green !important;
+    height: 40px !important;
+    width: 60px !important;
+    color:white !important;
+    float:left;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+    #login_button:hover {
+        background-color: #70842b;
+    }
+

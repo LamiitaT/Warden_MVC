@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="wardenModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="active_beacons">
+          <Key>
+            <PropertyRef Name="idcb" />
+          </Key>
+          <Property Name="idcb" Type="usmallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="all_beacons">
+          <Key>
+            <PropertyRef Name="idb" />
+          </Key>
+          <Property Name="idb" Type="usmallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="x" Type="double" />
+          <Property Name="y" Type="double" />
+          <Property Name="comments" Type="varchar" MaxLength="45" />
+          <Property Name="last_seen" Type="ubigint" />
+          <Property Name="neighbourID" Type="uint" />
+        </EntityType>
+        <EntityType Name="commands">
+          <Key>
+            <PropertyRef Name="idc" />
+          </Key>
+          <Property Name="idc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ctype" Type="enum" Nullable="false" />
+          <Property Name="destination_idb" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="idn" />
+          </Key>
+          <Property Name="idn" Type="int" Nullable="false" />
+          <Property Name="idb" Type="int" />
+          <Property Name="ntype" Type="enum" />
+          <Property Name="ninfo" Type="varchar" MaxLength="45" />
+          <Property Name="status" Type="varchar" MaxLength="45" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+          <Property Name="timeUpdated" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="new_beacons">
+          <Key>
+            <PropertyRef Name="idnb" />
+          </Key>
+          <Property Name="idnb" Type="usmallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notifications">
+          <Key>
+            <PropertyRef Name="idn" />
+          </Key>
+          <Property Name="idn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idb" Type="usmallint" Nullable="false" />
+          <Property Name="ntype" Type="enum" Nullable="false" />
+          <Property Name="ninfo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="idb_fk">
+          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="1" />
+          <End Role="notifications" Type="Self.notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="active_beacons">
+              <PropertyRef Name="idcb" />
+            </Principal>
+            <Dependent Role="notifications">
+              <PropertyRef Name="idb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idcb_fk">
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
+          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="all_beacons">
+              <PropertyRef Name="idb" />
+            </Principal>
+            <Dependent Role="active_beacons">
+              <PropertyRef Name="idcb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idnb_fk">
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
+          <End Role="new_beacons" Type="Self.new_beacons" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="all_beacons">
+              <PropertyRef Name="idb" />
+            </Principal>
+            <Dependent Role="new_beacons">
+              <PropertyRef Name="idnb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="idb_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <Function Name="idn_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <Function Name="ninfo_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <Function Name="status_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <Function Name="timeUpdated_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <Function Name="time_by" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="warden">
+          <Parameter Name="con" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="wardenModelStoreContainer">
+          <EntitySet Name="active_beacons" EntityType="Self.active_beacons" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="all_beacons" EntityType="Self.all_beacons" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="commands" EntityType="Self.commands" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="history" EntityType="Self.history" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="login" EntityType="Self.login" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="new_beacons" EntityType="Self.new_beacons" Schema="warden" store:Type="Tables" />
+          <EntitySet Name="notifications" EntityType="Self.notifications" Schema="warden" store:Type="Tables" />
+          <AssociationSet Name="idb_fk" Association="Self.idb_fk">
+            <End Role="active_beacons" EntitySet="active_beacons" />
+            <End Role="notifications" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="idcb_fk" Association="Self.idcb_fk">
+            <End Role="all_beacons" EntitySet="all_beacons" />
+            <End Role="active_beacons" EntitySet="active_beacons" />
+          </AssociationSet>
+          <AssociationSet Name="idnb_fk" Association="Self.idnb_fk">
+            <End Role="all_beacons" EntitySet="all_beacons" />
+            <End Role="new_beacons" EntitySet="new_beacons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="wardenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="active_beacons">
+          <Key>
+            <PropertyRef Name="idcb" />
+          </Key>
+          <Property Name="idcb" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="notifications" Relationship="Self.idb_fk" FromRole="active_beacons" ToRole="notifications" />
+          <NavigationProperty Name="all_beacons" Relationship="Self.idcb_fk" FromRole="active_beacons" ToRole="all_beacons" />
+        </EntityType>
+        <EntityType Name="all_beacons">
+          <Key>
+            <PropertyRef Name="idb" />
+          </Key>
+          <Property Name="idb" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="x" Type="Double" />
+          <Property Name="y" Type="Double" />
+          <Property Name="comments" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="last_seen" Type="Decimal" />
+          <Property Name="neighbourID" Type="Int64" />
+          <NavigationProperty Name="active_beacons" Relationship="Self.idcb_fk" FromRole="all_beacons" ToRole="active_beacons" />
+          <NavigationProperty Name="new_beacons" Relationship="Self.idnb_fk" FromRole="all_beacons" ToRole="new_beacons" />
+        </EntityType>
+        <EntityType Name="commands">
+          <Key>
+            <PropertyRef Name="idc" />
+          </Key>
+          <Property Name="idc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ctype" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="destination_idb" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="idn" />
+          </Key>
+          <Property Name="idn" Type="Int32" Nullable="false" />
+          <Property Name="idb" Type="Int32" />
+          <Property Name="ntype" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="ninfo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+          <Property Name="timeUpdated" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="new_beacons">
+          <Key>
+            <PropertyRef Name="idnb" />
+          </Key>
+          <Property Name="idnb" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="all_beacons" Relationship="Self.idnb_fk" FromRole="new_beacons" ToRole="all_beacons" />
+        </EntityType>
+        <EntityType Name="notifications">
+          <Key>
+            <PropertyRef Name="idn" />
+          </Key>
+          <Property Name="idn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idb" Type="Int32" Nullable="false" />
+          <Property Name="ntype" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ninfo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="active_beacons" Relationship="Self.idb_fk" FromRole="notifications" ToRole="active_beacons" />
+        </EntityType>
+        <Association Name="idb_fk">
+          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="1" />
+          <End Role="notifications" Type="Self.notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="active_beacons">
+              <PropertyRef Name="idcb" />
+            </Principal>
+            <Dependent Role="notifications">
+              <PropertyRef Name="idb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idcb_fk">
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
+          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="all_beacons">
+              <PropertyRef Name="idb" />
+            </Principal>
+            <Dependent Role="active_beacons">
+              <PropertyRef Name="idcb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idnb_fk">
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
+          <End Role="new_beacons" Type="Self.new_beacons" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="all_beacons">
+              <PropertyRef Name="idb" />
+            </Principal>
+            <Dependent Role="new_beacons">
+              <PropertyRef Name="idnb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="wardenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="active_beacons" EntityType="Self.active_beacons" />
+          <EntitySet Name="all_beacons" EntityType="Self.all_beacons" />
+          <EntitySet Name="commands" EntityType="Self.commands" />
+          <EntitySet Name="history" EntityType="Self.history" />
+          <EntitySet Name="login" EntityType="Self.login" />
+          <EntitySet Name="new_beacons" EntityType="Self.new_beacons" />
+          <EntitySet Name="notifications" EntityType="Self.notifications" />
+          <AssociationSet Name="idb_fk" Association="Self.idb_fk">
+            <End Role="active_beacons" EntitySet="active_beacons" />
+            <End Role="notifications" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="idcb_fk" Association="Self.idcb_fk">
+            <End Role="all_beacons" EntitySet="all_beacons" />
+            <End Role="active_beacons" EntitySet="active_beacons" />
+          </AssociationSet>
+          <AssociationSet Name="idnb_fk" Association="Self.idnb_fk">
+            <End Role="all_beacons" EntitySet="all_beacons" />
+            <End Role="new_beacons" EntitySet="new_beacons" />
+          </AssociationSet>
+          <FunctionImport Name="idb_by" ReturnType="Collection(wardenModel.idb_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="idn_by" ReturnType="Collection(wardenModel.idn_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ninfo_by" ReturnType="Collection(wardenModel.ninfo_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="status_by" ReturnType="Collection(wardenModel.status_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="timeUpdated_by" ReturnType="Collection(wardenModel.timeUpdated_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="time_by" ReturnType="Collection(wardenModel.time_by_Result)">
+            <Parameter Name="con" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="idb_by_Result" />
+        <ComplexType Name="idn_by_Result" />
+        <ComplexType Name="ninfo_by_Result" />
+        <ComplexType Name="status_by_Result" />
+        <ComplexType Name="timeUpdated_by_Result" />
+        <ComplexType Name="time_by_Result" />
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="wardenModelStoreContainer" CdmEntityContainer="wardenEntities">
+          <EntitySetMapping Name="active_beacons">
+            <EntityTypeMapping TypeName="wardenModel.active_beacons">
+              <MappingFragment StoreEntitySet="active_beacons">
+                <ScalarProperty Name="idcb" ColumnName="idcb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="all_beacons">
+            <EntityTypeMapping TypeName="wardenModel.all_beacons">
+              <MappingFragment StoreEntitySet="all_beacons">
+                <ScalarProperty Name="idb" ColumnName="idb" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="last_seen" ColumnName="last_seen" />
+                <ScalarProperty Name="neighbourID" ColumnName="neighbourID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commands">
+            <EntityTypeMapping TypeName="wardenModel.commands">
+              <MappingFragment StoreEntitySet="commands">
+                <ScalarProperty Name="idc" ColumnName="idc" />
+                <ScalarProperty Name="ctype" ColumnName="ctype" />
+                <ScalarProperty Name="destination_idb" ColumnName="destination_idb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="history">
+            <EntityTypeMapping TypeName="wardenModel.history">
+              <MappingFragment StoreEntitySet="history">
+                <ScalarProperty Name="idn" ColumnName="idn" />
+                <ScalarProperty Name="idb" ColumnName="idb" />
+                <ScalarProperty Name="ntype" ColumnName="ntype" />
+                <ScalarProperty Name="ninfo" ColumnName="ninfo" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="timeUpdated" ColumnName="timeUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="login">
+            <EntityTypeMapping TypeName="wardenModel.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="new_beacons">
+            <EntityTypeMapping TypeName="wardenModel.new_beacons">
+              <MappingFragment StoreEntitySet="new_beacons">
+                <ScalarProperty Name="idnb" ColumnName="idnb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="wardenModel.notifications">
+              <MappingFragment StoreEntitySet="notifications">
+                <ScalarProperty Name="idn" ColumnName="idn" />
+                <ScalarProperty Name="idb" ColumnName="idb" />
+                <ScalarProperty Name="ntype" ColumnName="ntype" />
+                <ScalarProperty Name="ninfo" ColumnName="ninfo" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="idb_by" FunctionName="wardenModel.Store.idb_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.idb_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="idn_by" FunctionName="wardenModel.Store.idn_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.idn_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ninfo_by" FunctionName="wardenModel.Store.ninfo_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.ninfo_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="status_by" FunctionName="wardenModel.Store.status_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.status_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="timeUpdated_by" FunctionName="wardenModel.Store.timeUpdated_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.timeUpdated_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="time_by" FunctionName="wardenModel.Store.time_by">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="wardenModel.time_by_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

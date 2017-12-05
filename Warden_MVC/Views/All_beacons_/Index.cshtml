@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Warden_MVC.Models.all_beacons>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.x)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.y)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.last_seen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.neighbourID)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.x)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.last_seen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.neighbourID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
