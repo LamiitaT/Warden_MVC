@@ -1,0 +1,67 @@
+﻿@model Warden_MVC.Models.login
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <style>
+        #login{
+            position:absolute;
+            left:40%;
+            top:40%;
+            padding:10px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="login">
+        @using (Html.BeginForm("Authorize", "Login",FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td></td>
+
+                    <td>Welcome to WARDEN</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.LabelFor(model => model.username)</td>
+                    <td>@Html.EditorFor(model => model.username)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model=>model.username)</td>
+                </tr>
+                <tr>
+                   
+                    <td>@Html.LabelFor(model => model.password)</td>
+                    <td>@Html.EditorFor(model => model.password)</td>
+                    <td> <label >@Html.DisplayFor(model =>model.loginError)</label></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.password) </td>
+                </tr>
+                <tr>
+<tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="name" value="Login" />
+
+                        <input type="reset" name="name" value="reset" />
+                    </td>
+                </tr>
+            </table>
+        }
+        
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

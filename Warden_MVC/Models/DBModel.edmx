@@ -224,8 +224,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idcb_fk">
-          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
-          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="0..1" />
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="active_beacons" Type="Self.active_beacons" Multiplicity="0..1" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="all_beacons">
               <PropertyRef Name="idb" />
@@ -236,8 +239,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idnb_fk">
-          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" />
-          <End Role="new_beacons" Type="Self.new_beacons" Multiplicity="0..1" />
+          <End Role="all_beacons" Type="Self.all_beacons" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="new_beacons" Type="Self.new_beacons" Multiplicity="0..1" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="all_beacons">
               <PropertyRef Name="idb" />

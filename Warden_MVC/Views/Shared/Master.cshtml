@@ -1,25 +1,32 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @RenderSection("styles", required: false)
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div>
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <ul class="nav nav-pills pull-right">
+                <div class="navbar-header">
                    
-                </ul>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-        @RenderBody()
+     <div class="container-fluid" body-content>@RenderBody()</div>
+      
     </div>
 </body>
 </html>

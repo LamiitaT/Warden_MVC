@@ -1,0 +1,104 @@
+﻿
+@model PagedList.IPagedList<Warden_MVC.Models.notifications>
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Notifications";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Index</title>s
+</head>
+<body>
+    <div class="col-xs-12" style="overflow:scroll;height:500px">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3></h3>
+            </div>
+            <div class="panel-body">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.idn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.idb)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ntype)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ninfo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.time)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idb)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ntype)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ninfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.time)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Seen", "seen", new { id = item.idb }) 
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+                        Page @(Model)
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

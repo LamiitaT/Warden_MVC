@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,15 +35,20 @@ namespace Warden_MVC.Controllers
         // GET: All_beacons_/Create
         public ActionResult Create()
         {
-            return View(new all_beacons());
+            return View();
         }
 
         // POST: All_beacons_/Create
+
         [HttpPost]
+        [ChildActionOnly]
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ActionName ("Createb")]
         public ActionResult Create(all_beacons all_beacons_model)
         {
             using (wardenEntities wardenEntity = new wardenEntities())
             {
+
                 wardenEntity.all_beacons.Add(all_beacons_model);
                 wardenEntity.SaveChanges();
             }
@@ -56,6 +62,7 @@ namespace Warden_MVC.Controllers
             using (wardenEntities wardenEntity = new wardenEntities())
             {
                 all_beacons_model = wardenEntity.all_beacons.Where(x => x.idb == id).FirstOrDefault();
+
             }
             return View(all_beacons_model);
         }
@@ -77,10 +84,32 @@ namespace Warden_MVC.Controllers
         }
 
         // GET: All_beacons_/Delete/5
+    
         public ActionResult Delete(int id)
         {
-            return View();
+            all_beacons all_beacons_model = new all_beacons();
+
+            using (wardenEntities wardenEntity = new wardenEntities())
+            {
+                all_beacons_model = wardenEntity.all_beacons.Where(x => x.idb == id).FirstOrDefault();
+                wardenEntity.Entry<all_beacons>(all_beacons_model).State = EntityState.Modified;
+                wardenEntity.Entry<active_beacons>(all_beacons_model.active_beacons).State = EntityState.Deleted;
+                wardenEntity.SaveChanges();
+
+            }
+
+            return  RedirectToAction("Index");
         }
+        public ActionResult getall()
+        {
+
+            List<all_beacons> all_beacons_list = new List<all_beacons>();
+            using (wardenEntities wardenEntity = new wardenEntities())
+            {
+                all_beacons_list = wardenEntity.all_beacons.ToList<all_beacons>();
+            }
+            return View(all_beacons_list);
+}
 
         // POST: All_beacons_/Delete/5
         [HttpPost]
