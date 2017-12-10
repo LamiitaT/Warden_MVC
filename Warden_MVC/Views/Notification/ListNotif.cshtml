@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<Warden_MVC.Models.notifications>
+
+@using PagedList.Mvc;
+
+
+<div id="contentNotif">
+    <table class="table table-condensed col-xs-12">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Unit ID
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Info
+                </th>
+                <th>
+                    Time received
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddMilliseconds(item.time);
+                <tr>
+                    <td id="param">
+                        @Html.DisplayFor(modelItem => item.idn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idb)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ntype)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ninfo)
+                    </td>
+                    <td>
+                        @dtDateTime
+                    </td>
+                    <td>
+                        @Html.ActionLink("Seen", "Seen", new { id = item.idn }, new { id = "btn" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="contentPagerNotif">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListNotif", new { page }))
+    </div>
+</div>

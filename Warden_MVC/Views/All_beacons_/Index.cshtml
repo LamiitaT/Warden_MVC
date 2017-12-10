@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Warden_MVC.Models.all_beacons>
 
-
-
 @{
 
     Layout = null;
@@ -18,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
             $('#nbutton').click(function () {
                 var list = document.getElementById("nlist");
@@ -94,65 +92,35 @@
 </head>
 <body>
     <div class="row">
-        <div class="row">
-            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#">Navbar</a>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown link
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    
+
                     <a class="navbar-brand" href="#">WARDEN</a>
                 </div>
-                    <ul class="nav navbar-nav navbar-right">
-                      <li>
-                            <div id="noti_Container">
-                                     <a id="nbutton">Notifications</a>
-                                    <div class="noti_bubble" id="count" runat="server">
-                                     </div>
-                             </div>
-                        </li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div id="noti_Container">
+                            <a id="nbutton">Notifications</a>
+                            <div class="noti_bubble" id="count" runat="server">
+                            </div>
+                        </div>
+                    </li>
 
-                        <li><a href="#">Logout</a></li>
-                    </ul>
+                    <li><a href="#">Logout</a></li>
+                </ul>
             </div><!-- /.container-fluid -->
         </nav>
     </div>
 
-        <div class="col-xs-4" >
+    <div class="col-xs-4">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Create Unit</button>
             </div>
-            <div class="panel-body" style="overflow:scroll;height:500px" >
+            <div class="panel-body" style="overflow:scroll;height:500px">
                 <table class="table table-stri" id="test">
                     <thead>
                         <tr>
@@ -206,18 +174,15 @@
                             </tr>
                         }
                     </tbody>
-                
-
-
                 </table>
             </div>
         </div>
     </div>
-        
+
     <div class="col-md-8" id="map" style="width: 1000px; height: 650px">
-        @Html.Partial("~/Views/Shared/_Create1.cshtml", new Warden_MVC.Models.all_beacons())
     </div>
-    
+
+    <div style="background-color: red">
         <div id="nlist" style="display: none">
             <div class="tabs">
                 <ul class="tab-links">
@@ -228,97 +193,25 @@
                 </ul>
                 <div class="tabcontent">
                     <div id="tab1" class="tab active">
-                        <div class="panel panel-notifications">
-                            <div class="panel-body">
-                                <div class="scrollrow">
-                                    
-
-                                    @{Html.RenderAction("Index", "History");}
+                        <div class="panel panel-notifications col-xs-12">
+                            <div>
+                                <div>
+                                    @{Html.RenderAction("Index", "Notification");}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="tab2" class="tab">
-                        <div class="panel panel-history">
-                            <div class="panel-body">
-                                <div class="scrollrow">
-                                    <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Always">
-                                        <ContentTemplate>
-                                            <asp:GridView runat="server" ID="AcceptedRecordsGridview" AutoGenerateColumns="false"
-                                                          DataKeyNames="idn" CssClass="table" GridLines="none" AllowPaging="true" OnPageIndexChanging="OnPaging">
-                                                <Columns>
-                                                    <asp:TemplateField HeaderText="ID" SortExpression="idn">
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("idn") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("idn") %>'></asp:Label>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Message info" SortExpression="ninfo">
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("ninfo") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("ninfo") %>'></asp:TextBox>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Unit ID" SortExpression="idb">
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("idb") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("idb") %>'></asp:Label>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField>
-                                                        <HeaderTemplate>
-                                                            Status:
-                                                            <asp:DropDownList ID="ddlStatus" runat="server"
-                                                                              OnSelectedIndexChanged="StatusChanged" AutoPostBack="true"
-                                                                              AppendDataBoundItems="true">
-                                                            </asp:DropDownList>
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("status") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("status") %>'></asp:Label>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Received" SortExpression="time">
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("time") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("time") %>'></asp:Label>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Solved" SortExpression="timeUpdated">
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label2" runat="server" Text='<%# Bind("timeUpdated") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                        <EditItemTemplate>
-                                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("timeUpdated") %>'></asp:Label>
-                                                        </EditItemTemplate>
-                                                    </asp:TemplateField>
-                                                </Columns>
-                                            </asp:GridView>
-                                            <asp:Timer runat="server" ID="Timer2" Interval="5000" OnTick="Timer1_Tick"></asp:Timer>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
+                        <div class="panel panel-history col-xs-12">
+                            <div class="col-xs-12">
+                                @{Html.RenderAction("Gethistory", "Notification");}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
- 
-
- 
-
-    
+        </div>
+    </div>
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -328,9 +221,9 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Modal Header</h4>
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     @{Html.RenderAction("Create", "All_beacons_");}
-                  
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<Warden_MVC.Models.history>
+
+@using PagedList.Mvc;
+
+
+<div id="contentHistory">
+    <table class="table table-condensed col-xs-12">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Unit ID
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Info
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Time received
+                </th>
+                <th>
+                    Time updated
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddMilliseconds(item.time);
+                DateTime timenow = DateTime.Now;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idb)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ntype)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ninfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @dtDateTime
+                    </td>
+                    <td>
+                        @timenow
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="contentPagerHistory">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListHistory", new { page }))
+    </div>
+</div>
