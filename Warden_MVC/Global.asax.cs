@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
+using Warden_MVC.App_Start;
 
 namespace Warden_MVC
 {
@@ -12,6 +14,7 @@ namespace Warden_MVC
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
