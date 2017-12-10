@@ -40,11 +40,9 @@ namespace Warden_MVC.Controllers
         }
 
         // POST: All_beacons_/Create
-
         [HttpPost]
         [ChildActionOnly]
         [AcceptVerbs(HttpVerbs.Post)]
-        [ActionName ("Createb")]
         public ActionResult Create(all_beacons all_beacons_model)
         {
             using (wardenEntities wardenEntity = new wardenEntities())

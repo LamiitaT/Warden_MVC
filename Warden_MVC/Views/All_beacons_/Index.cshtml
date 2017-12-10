@@ -37,11 +37,10 @@
         });
     </script>
     <script>
-
-        // This example displays a marker at the center of Australia.
-        // When the user clicks the marker, an info window opens.
-
         function initMap() {
+            var collection = @Html.Raw(Json.Encode(Model.Select(m=> new { lat=m.x,lng=m.y})));
+
+
             var uluru = { lat: -25.363, lng: 131.044 };
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
@@ -73,11 +72,15 @@
                 content: contentString
             });
 
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-                title: 'Uluru (Ayers Rock)'
-            });
+                for (var i = 0; i < collection.length; i++) {
+
+                    var pointMarker = new google.maps.Marker({
+                        position: collection[i],
+                        map: map,
+                        title: "collection" + i
+                    });
+                }
+
             marker.addListener('click', function () {
                 infowindow.open(map, marker);
             });
